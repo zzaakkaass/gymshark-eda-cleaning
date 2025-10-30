@@ -86,6 +86,27 @@ create a .env (not tracked) based on .env.example:
 ```
 PYTHONPATH=src
 ```
+## streamlit demo
+
+this project includes a simple streamlit demo to explore the cleaned data.
+
+run:
+
+```
+streamlit run notebooks/app.py
+```
+or, if you prefer to point to a processed file:
+```
+streamlit run notebooks/app.py -- --data-path data/processed/clean.csv
+```
+
+requirements:
+```
+pip install streamlit pandas
+```
+
+
+
 
 #exploratory data analysis (eda)
 
