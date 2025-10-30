@@ -8,20 +8,23 @@ simple pipeline for cleaning and normalizing the Gymshark dataset. the goal is t
 
 ## quickstart
 
-```bash
+```
 git clone https://github.com/zzaakkaass/gymshark-eda-cleaning.git
 cd gymshark-eda-cleaning
-
+```
 # create and activate venv (recommended)
+```
 python -m venv .venv
 source .venv/bin/activate  # windows: .venv\Scripts\activate
-
+```
 # install in dev mode
+```
 pip install -e ".[dev]"
-
+```
 # run cleaning on the sample data
+```
 python -m gsclean run --input-path data/raw --output-path data/processed
-
+```
 # optional: open the streamlit viewer
 streamlit run notebooks/app.py
 features
@@ -44,8 +47,7 @@ cli (python -m gsclean or gsclean run ...)
 simple streamlit explorer
 
 project structure
-text
-Copiar código
+```
 .
 ├── data/
 │   ├── raw/
@@ -66,6 +68,7 @@ Copiar código
 ├── pyproject.toml
 ├── .env.example
 └── .gitignore
+```
 requirements
 python 3.10+
 
@@ -74,27 +77,23 @@ pip
 (optional) virtualenv
 
 installation (dev)
-bash
-Copiar código
+```
 python -m venv .venv
 source .venv/bin/activate  # windows: .venv\Scripts\activate
 pip install -e ".[dev]"
 usage (cli)
 put your raw csvs under data/raw/ and run:
-
-bash
-Copiar código
+```
+```
 gsclean run --input-path data/raw --output-path data/processed
 # or
 python -m gsclean run --input-path data/raw --output-path data/processed
 this will generate:
+```
 
-text
-Copiar código
 data/processed/clean.csv
 usage (python)
-python
-Copiar código
+```
 from gsclean.cleaning import clean
 from gsclean.io import load_raw, save_processed
 
@@ -102,37 +101,37 @@ df = load_raw("data/raw")
 df_clean, stats = clean(df, verbose=True)
 save_processed(df_clean, "data/processed")
 print(stats)
+```
+
 environment variables
 create a .env (not tracked) based on .env.example:
 
-bash
-Copiar código
+```
 PYTHONPATH=src
 this makes src/ importable during local development and testing.
+```
 
 streamlit demo
 this project includes a simple streamlit demo to explore the cleaned data.
 
 run:
 
-bash
-Copiar código
+
 streamlit run notebooks/app.py
 by default it will try to load:
 
-text
-Copiar código
+
 data/processed/clean.csv
 if the file does not exist, run the cleaning pipeline first:
 
-bash
-Copiar código
+
 python -m gsclean run --input-path data/raw --output-path data/processed
 requirements:
 
-bash
-Copiar código
+```
 pip install streamlit pandas
+```
+
 exploratory data analysis (eda)
 this repo also stores some basic eda findings on top of the cleaned dataset.
 
@@ -186,9 +185,10 @@ decide which categories to prioritize
 spot anomalies (very small categories vs very large ones)
 
 tests
-bash
-Copiar código
+```
 pytest -v
+```
+
 notes
 data folders are mostly ignored in git to keep the repo light.
 
