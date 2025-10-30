@@ -1,0 +1,30 @@
+[project]
+name = "eda & cleaning"
+version = "0.1.0"
+description = "data cleaning + eda for gymshark dataset"
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+  "pandas",
+  "numpy",
+  "python-dotenv",
+  "typer",
+  "rich",
+]
+
+[project.optional-dependencies]
+dev = ["pytest", "pytest-cov", "ruff", "black"]
+
+[project.scripts]
+gsclean = "gsclean.cli:main"
+
+[tool.pytest.ini_options]
+addopts = "-q"
+testpaths = ["tests"]
+
+[tool.black]
+line-length = 100
+
+[tool.ruff]
+line-length = 100
+target-version = "py310"

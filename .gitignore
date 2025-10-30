@@ -1,0 +1,51 @@
+# python cache
+__pycache__/
+*.py[cod]
+*.egg-info/
+*.egg
+*.pyo
+
+# virtual env
+.venv/
+venv/
+env/
+ENV/
+
+# jupyter notebooks checkpoints
+.ipynb_checkpoints/
+
+# IDE / editor
+.vscode/
+.idea/
+*.swp
+*.swo
+.DS_Store
+
+# logs e temporários
+*.log
+*.tmp
+*.bak
+
+# arquivos de ambiente e credenciais
+.env
+.env.*
+
+# dados brutos e processados (mantém leve)
+data/processed/*
+data/external/*
+data/interim/*
+
+# builds / dist
+build/
+dist/
+
+# pytest / coverage
+.pytest_cache/
+.coverage
+htmlcov/
+
+# sistema
+Thumbs.db
+
+# outputs de análises
+notebooks/__pycache__/
