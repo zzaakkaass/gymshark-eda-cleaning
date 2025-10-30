@@ -1,0 +1,6 @@
+handle,title,tags,product_type,price,image_src,inventory_quantity
+beanie-001,Gymshark Beanie,"winter,accessories",,39.99,,10
+cap-001,Basic Cap,"sport,headwear",,19.99,img_cap.jpg,20
+sock-001,Running Socks,"footwear,training",,12.50,,15
+bag-001,Travel Bag,"bags,accessories",,45.00,,30
+broken-001,Broken Item,"misc",,0,img_broken.jpg,5
