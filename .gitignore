@@ -30,10 +30,14 @@ ENV/
 .env
 .env.*
 
-# dados brutos e processados (mantém leve)
-data/processed/*
-data/external/*
-data/interim/*
+# ignora tudo
+data/*
+# mas deixa o sample
+!data/raw/
+!data/raw/sample_gymshark.csv
+# e deixa um readme em processed
+!data/processed/
+!data/processed/README.md
 
 # builds / dist
 build/
