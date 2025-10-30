@@ -73,8 +73,9 @@ df = load_raw("data/raw")
 df_clean, stats = clean(df, verbose=True)
 save_processed(df_clean, "data/processed")
 print(stats)
-
+```
 testes
+```
 pytest -v
 ```
 variáveis de ambiente
