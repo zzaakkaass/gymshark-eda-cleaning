@@ -1,89 +1,146 @@
 # gymshark-eda-cleaning
 
-pipeline simples de limpeza e normalização do dataset da gymshark. o objetivo é pegar os csvs brutos, aplicar regras de negócio (tirar produtos sem preço, inferir `product_type`, preencher imagem faltando) e gerar um csv limpo pra usar em eda/modelagem.
+simple pipeline for cleaning and normalizing the Gymshark dataset. the goal is to take the raw CSV files, apply business rules (drop products with no price, infer `product_type`, fill missing images) and output a clean CSV ready for EDA/modeling.
 
 ## features
-- leitura de csvs a partir de `data/raw/`
-- remoção de coluna inútil (`inventory_quantity`)
-- filtragem de produtos com `price <= 0`
-- classificação de `product_type` faltante com base em título/tags
-- preenchimento "ganancioso" de `image_src` procurando no mesmo handle/título/tipo
-- saída em `data/processed/clean.csv`
-- testes automatizados com `pytest`
-- cli (`python -m gsclean` ou `gsclean run ...`)
+- read CSV files from `data/raw/`
+- drop useless column (`inventory_quantity`)
+- filter out products with `price <= 0`
+- classify missing `product_type` based on title/tags
+- "greedy" filling of `image_src` by looking at same handle/title/type
+- output to `data/processed/clean.csv`
+- automated tests with `pytest`
+- cli (`python -m gsclean` or `gsclean run ...`)
 
-## estrutura do projeto
+## project structure
 ```text
 .
 ├── data/
-│   ├── raw/          # csvs originais (não vão pro git)
-│   └── processed/    # csvs já limpos (não vão pro git)
-├── notebooks/        # exploração e rascunhos
+│   ├── raw/          # original csvs (not versioned)
+│   └── processed/    # cleaned csvs (not versioned)
+├── notebooks/        # exploration and drafts
 ├── src/
 │   └── gsclean/
 │       ├── __init__.py
 │       ├── __main__.py
-│       ├── cleaning.py   # lógica de limpeza
-│       ├── cli.py        # linha de comando
-│       └── io.py         # leitura/escrita
+│       ├── cleaning.py   # cleaning logic
+│       ├── cli.py        # command line interface
+│       └── io.py         # read/write helpers
 ├── tests/
 │   └── test_cleaning.py
 ├── pyproject.toml
 ├── .env.example
 └── .gitignore
 ```
-requisitos
 
+requirements
 python 3.10+
 
 pip
 
-(opcional) virtualenv
-
-instalação em dev:
-
+(optional) virtualenv
 ```
+dev installation
 python -m venv .venv
 source .venv/bin/activate  # windows: .venv\Scripts\activate
 pip install -e ".[dev]"
 ```
-usando pela linha de comando
 
-coloque seus csvs brutos em data/raw/
+usage (cli)
 
-```rode:
+put your raw CSVs under data/raw/
+
+```
+run:
 
 gsclean run --input-path data/raw --output-path data/processed
 
 
-ou
+or
 
 python -m gsclean run --input-path data/raw --output-path data/processed
 ```
 
-isso vai gerar data/processed/clean.csv.
+this will generate data/processed/clean.csv.
 
-usando em código
+usage (python)
 ```
 import pandas as pd
 from gsclean.cleaning import clean
 from gsclean.io import load_raw, save_processed
-
+```
+```
 df = load_raw("data/raw")
 df_clean, stats = clean(df, verbose=True)
 save_processed(df_clean, "data/processed")
 print(stats)
 ```
-testes
+tests
 ```
 pytest -v
 ```
-variáveis de ambiente
 
-crie um .env (que não vai pro git) baseado em .env.example:
+environment variables
 
+create a .env (not tracked) based on .env.example:
 ```
 PYTHONPATH=src
 ```
 
-o primeiro projeto que eu tento fazer ser mais "real", ficou bagunçado, mas gostei aonde cheguei.
+#exploratory data analysis (eda)
+
+this repo is also meant to keep track of basic EDA results on top of the cleaned dataset.
+
+1. price statistics
+
+max price: USD 1,000.00
+
+min price: USD 1.00
+
+mean price: USD 27.76
+
+most expensive item: Gymshark Collegiate Crop Tank - Ink Teal
+
+price: USD 1,000.00
+
+category: Womens Tank
+
+2. expensive products analysis
+
+products above USD 500: 12
+
+percentage of total: 0.03%
+
+avg price of expensive items: USD 1,000.00
+
+classification: outlier / special items
+
+reason: only 12 products above the threshold
+
+distribution by category:
+
+Womens Tank: 12 products
+
+conclusion: high-price segment is concentrated in a single category, so it should be treated as outliers in modeling.
+
+3. top 5 categories (by product count)
+
+Mens T-Shirt: 4,430 products
+
+Mens Shorts: 3,323 products
+
+Womens Leggings: 2,878 products
+
+Womens Shorts: 2,691 products
+
+Womens Sports Bras: 2,506 products
+
+these numbers are useful to:
+
+spot category imbalance
+
+prioritize which categories to model first
+
+detect anomalies (tiny categories vs huge ones)
+
+first “real” project always looks messy from the inside.
