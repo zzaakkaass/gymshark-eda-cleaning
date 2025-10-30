@@ -105,6 +105,18 @@ requirements:
 pip install streamlit pandas
 ```
 
+e aí no README você coloca, sem rodeio:
+
+## streamlit demo
+
+```bash
+streamlit run notebooks/app.py
+
+
+requirements:
+
+pip install streamlit pandas
+
 
 
 
@@ -163,5 +175,7 @@ spot category imbalance
 prioritize which categories to model first
 
 detect anomalies (tiny categories vs huge ones)
+
+
 
 first “real” project always looks messy from the inside.
