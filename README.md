@@ -184,6 +184,21 @@ decide which categories to prioritize
 
 spot anomalies (very small categories vs very large ones)
 
+4. prescriptive analysis
+descriptive eda stops at "what happened". this section takes it one step further: for each finding above, what should actually be done about it.
+
+finding: all 12 products priced above usd 500 turn out to be a single flat price, usd 1,000.00, covering only 2 products ("collegiate crop tank" in ink teal and dusty maroon) across their 6 size variants each (xs-xxl). a flat, size-independent price is not how apparel pricing normally behaves, and usd 1,000.00 is ~36x the dataset's mean price (usd 27.76).
+
+recommendation: treat this as a probable price data-entry error, not a legitimate premium line, and flag it back to the source catalog (handles `gymshark-collegiate-crop-tank-ink-teal-ss23` and `gymshark-collegiate-crop-tank-dusty-maroon-ss23`). silently dropping these 12 rows as "outliers" during modeling hides a data bug instead of fixing it — the eda notebook's original "treat as outlier" framing was on the right track but stopped one step short.
+
+finding: after the greedy image filler runs, only 7 of 44,831 products (0.02%) are still missing an image, and all 7 are one-off "misc." made-to-order items (custom lettering, patches, engraving) with no sibling variant to borrow a photo from.
+
+recommendation: don't spend more engineering time on the fallback heuristic for this — the return is close to zero. resolving 7 specific products by hand (upload the real photos) is cheaper than designing and maintaining a 4th matching tier for a problem this small.
+
+finding: `product_type` has 91 unique raw values but only 85 after normalizing case and whitespace — e.g. "Mens T-Shirt" (4,430 rows) vs "mens T-Shirt" (35 rows), and "footwear" (91 rows) vs "Footwear" (115 rows). same category, split into two counts purely by casing.
+
+recommendation: this silently fragments category counts (the "top 5 categories" list above would shift if normalized) and will keep reappearing with every new data export, since the cleaning pipeline only treats the symptom. the real fix belongs upstream — a constrained field or normalization step at the point of data entry/etl — not another downstream cleaning rule.
+
 tests
 ```
 pytest -v
