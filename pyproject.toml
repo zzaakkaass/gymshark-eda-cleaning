@@ -1,5 +1,5 @@
 [project]
-name = "eda & cleaning"
+name = "gymshark-eda-cleaning"
 version = "0.1.0"
 description = "data cleaning + eda for gymshark dataset"
 readme = "README.md"

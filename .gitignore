@@ -29,6 +29,7 @@ ENV/
 # arquivos de ambiente e credenciais
 .env
 .env.*
+!.env.example
 
 # ignora tudo
 data/*
