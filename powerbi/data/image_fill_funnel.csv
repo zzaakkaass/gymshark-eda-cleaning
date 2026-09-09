@@ -1,0 +1,5 @@
+tier,products,label,initial_missing
+same_handle,101,1. mesmo handle,128
+same_title_type,0,2. mesmo titulo+tipo,128
+similar_title_token,20,3. token do titulo,128
+unresolved,7,4. nao resolvido,128

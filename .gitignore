@@ -35,9 +35,11 @@ ENV/
 data/*
 # mas deixa o sample
 !data/raw/
+data/raw/*
 !data/raw/sample_gymshark.csv
 # e deixa um readme em processed
 !data/processed/
+data/processed/*
 !data/processed/README.md
 
 # builds / dist
